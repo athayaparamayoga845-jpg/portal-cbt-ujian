@@ -249,7 +249,7 @@
       </div>
     </div>
 
-    <!-- SUB-VIEW 2: DASHBOARD NILAI & RIWAYAT NILAI PESERTA + FITUR HAPUS RIWAYAT PENGERJAAN SISWA (KETENTUAN BARU 1) -->
+    <!-- SUB-VIEW 2: DASHBOARD NILAI & RIWAYAT NILAI PESERTA + FITUR HAPUS RIWAYAT PENGERJAAN SISWA -->
     <div id="student-subview-grades" class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-5">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 pb-4">
         <div>
@@ -358,7 +358,7 @@
     </div>
   </section>
 
-  <!-- MODAL KONFIRMASI HAPUS RIWAYAT PENGERJAAN OLEH SISWA (KETENTUAN BARU 1) -->
+  <!-- MODAL KONFIRMASI HAPUS RIWAYAT PENGERJAAN OLEH SISWA -->
   <div id="modal-student-confirm-delete-history" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[65] flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 text-center border border-slate-100">
       <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center mx-auto mb-3 text-xl">
@@ -582,7 +582,7 @@
       </div>
     </div>
 
-    <!-- MODAL BUAT UJIAN BARU (CARA 1 & PINTASAN CARA 2) -->
+    <!-- MODAL BUAT UJIAN BARU (DILENGKAPI FITUR SETIAP HARI, JAM KAPAN SAJA & WAKTU TIDAK TERBATAS) -->
     <div id="modal-create-exam" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
       <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full p-6 my-8 border border-slate-100 relative max-h-[92vh] overflow-y-auto">
         <button id="btn-close-create-modal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
@@ -604,7 +604,7 @@
             <i class="fa-solid fa-file-pdf text-rose-600 text-lg mt-0.5"></i>
             <div>
               <span class="font-bold text-xs text-slate-900 block">CARA 2: Multi-Tipe CBT (PG, PG Kompleks, Menjodohkan, Gambar, PDF/Teks)</span>
-              <span class="text-[11px] text-slate-500">Buat soal CBT interaktif, gambar soal/opsi, & penilaian otomatis.</span>
+              <span class="text-[11px] text-slate-500">Buat soal CBT interaktif, jadwal bebas/setiap hari, waktu tak terbatas & penilaian otomatis.</span>
             </div>
           </button>
         </div>
@@ -622,9 +622,16 @@
                 class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Durasi Pengerjaan (Menit)</label>
-              <input type="number" id="create-duration" min="0" placeholder="0 = Tanpa batas waktu" 
+              <div class="flex justify-between items-center mb-1">
+                <label class="block text-xs font-semibold text-slate-600 uppercase">Durasi Pengerjaan (Menit)</label>
+                <label class="flex items-center space-x-1 text-[11px] font-bold text-indigo-600 cursor-pointer">
+                  <input type="checkbox" id="create-unlimited-duration" class="w-3.5 h-3.5 text-indigo-600 rounded">
+                  <span>Waktu Tidak Terbatas</span>
+                </label>
+              </div>
+              <input type="number" id="create-duration" min="0" value="0" placeholder="0 = Waktu Tidak Terbatas" 
                 class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+              <span class="text-[10px] text-slate-400">Isi 0 atau centang "Waktu Tidak Terbatas" untuk durasi bebas.</span>
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Maksimal Pengerjaan per Siswa</label>
@@ -632,20 +639,29 @@
                 class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Tanggal Pelaksanaan</label>
-              <input type="date" id="create-start-time"
-                class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Jam Mulai</label>
-                <input type="time" id="create-clock-start" value="07:00"
-                  class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+              <div class="flex justify-between items-center mb-1">
+                <label class="block text-xs font-semibold text-slate-600 uppercase">Tanggal Pelaksanaan</label>
+                <label class="flex items-center space-x-1 text-[11px] font-bold text-emerald-600 cursor-pointer">
+                  <input type="checkbox" id="create-every-day" checked class="w-3.5 h-3.5 text-emerald-600 rounded">
+                  <span>Bisa Setiap Hari</span>
+                </label>
               </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Jam Berakhir</label>
-                <input type="time" id="create-clock-end" value="23:59"
-                  class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+              <input type="date" id="create-start-time" disabled
+                class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none disabled:bg-slate-100 disabled:text-slate-400">
+            </div>
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label class="block text-xs font-semibold text-slate-600 uppercase">Jam Pelaksanaan</label>
+                <label class="flex items-center space-x-1 text-[11px] font-bold text-emerald-600 cursor-pointer">
+                  <input type="checkbox" id="create-anytime-clock" checked class="w-3.5 h-3.5 text-emerald-600 rounded">
+                  <span>Jam Kapan Saja (24 Jam)</span>
+                </label>
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <input type="time" id="create-clock-start" value="00:00" disabled
+                  class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none disabled:bg-slate-100 disabled:text-slate-400">
+                <input type="time" id="create-clock-end" value="23:59" disabled
+                  class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none disabled:bg-slate-100 disabled:text-slate-400">
               </div>
             </div>
             <div>
@@ -691,7 +707,7 @@
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
           <h3 class="font-bold text-lg text-slate-900">Manajemen Bank Soal Ujian (Link & CBT Internal Multi-Tipe)</h3>
-          <p class="text-xs text-slate-500">Kelola status aktif, metode soal, jadwal, token, dan konfigurasi ujian yang tersedia.</p>
+          <p class="text-xs text-slate-500">Kelola status aktif, metode soal, jadwal (setiap hari / terjadwal), durasi (bebas / terbatas), token, dan konfigurasi ujian.</p>
         </div>
         <div class="flex flex-wrap gap-2">
           <button id="btn-open-create-modal" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition flex items-center space-x-1.5 shadow-sm">
@@ -735,13 +751,13 @@
       </div>
     </div>
 
-    <!-- TAB 3: MENU EDIT PENGATURAN SOAL UJIAN -->
+    <!-- TAB 3: MENU EDIT PENGATURAN SOAL UJIAN (DILENGKAPI SETIAP HARI, JAM KAPAN SAJA & WAKTU TIDAK TERBATAS) -->
     <div id="tab-content-edit-exam" class="hidden bg-white p-6 rounded-2xl border border-slate-200 shadow-sm max-w-3xl mx-auto space-y-6">
       <div class="border-b border-slate-100 pb-3">
         <h3 class="font-bold text-lg text-slate-900 flex items-center">
           <i class="fa-solid fa-sliders text-indigo-600 mr-2"></i> Edit Pengaturan Soal Ujian
         </h3>
-        <p class="text-xs text-slate-500 mt-0.5">Pilih soal ujian yang telah dibuat untuk memperbarui tautan, jadwal, pengacakan, izin lihat nilai/pembahasan, dan konfigurasinya.</p>
+        <p class="text-xs text-slate-500 mt-0.5">Pilih soal ujian yang telah dibuat untuk memperbarui tautan, jadwal (termasuk opsi Setiap Hari, Jam Kapan Saja, dan Waktu Tidak Terbatas), pengacakan, serta izin pembahasan.</p>
       </div>
 
       <div>
@@ -765,26 +781,41 @@
             <input type="url" id="tab-edit-url" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Durasi Pengerjaan (Menit)</label>
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-xs font-semibold text-slate-600 uppercase">Durasi Pengerjaan (Menit)</label>
+              <label class="flex items-center space-x-1 text-[11px] font-bold text-indigo-600 cursor-pointer">
+                <input type="checkbox" id="tab-edit-unlimited-duration" class="w-3.5 h-3.5 text-indigo-600 rounded">
+                <span>Waktu Tidak Terbatas</span>
+              </label>
+            </div>
             <input type="number" id="tab-edit-duration" min="0" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
-            <span class="text-[10px] text-slate-400">0 = Tanpa batas waktu</span>
+            <span class="text-[10px] text-slate-400">0 = Waktu Tidak Terbatas (Bebas)</span>
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Maksimal Pengerjaan per Siswa</label>
             <input type="number" id="tab-edit-max-attempts" min="1" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Tanggal Pelaksanaan</label>
-            <input type="date" id="tab-edit-date" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
-          </div>
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Jam Mulai</label>
-              <input type="time" id="tab-edit-clock-start" class="w-full px-2 py-2 border border-slate-300 rounded-lg text-sm">
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-xs font-semibold text-slate-600 uppercase">Tanggal Pelaksanaan</label>
+              <label class="flex items-center space-x-1 text-[11px] font-bold text-emerald-600 cursor-pointer">
+                <input type="checkbox" id="tab-edit-every-day" class="w-3.5 h-3.5 text-emerald-600 rounded">
+                <span>Bisa Setiap Hari</span>
+              </label>
             </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Jam Berakhir</label>
-              <input type="time" id="tab-edit-clock-end" class="w-full px-2 py-2 border border-slate-300 rounded-lg text-sm">
+            <input type="date" id="tab-edit-date" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none disabled:bg-slate-100 disabled:text-slate-400">
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-xs font-semibold text-slate-600 uppercase">Jam Pelaksanaan</label>
+              <label class="flex items-center space-x-1 text-[11px] font-bold text-emerald-600 cursor-pointer">
+                <input type="checkbox" id="tab-edit-anytime-clock" class="w-3.5 h-3.5 text-emerald-600 rounded">
+                <span>Jam Kapan Saja (24 Jam)</span>
+              </label>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <input type="time" id="tab-edit-clock-start" class="w-full px-2 py-2 border border-slate-300 rounded-lg text-sm disabled:bg-slate-100 disabled:text-slate-400">
+              <input type="time" id="tab-edit-clock-end" class="w-full px-2 py-2 border border-slate-300 rounded-lg text-sm disabled:bg-slate-100 disabled:text-slate-400">
             </div>
           </div>
           <div>
@@ -973,14 +1004,14 @@
       </div>
     </div>
 
-    <!-- TAB BARU B: PEMBUAT & EDITOR SOAL CBT MULTI-TIPE & SOAL BERGAMBAR (KETENTUAN 3 & 4) -->
+    <!-- TAB BARU B: PEMBUAT & EDITOR SOAL CBT MULTI-TIPE & SOAL BERGAMBAR + JADWAL SETIAP HARI & WAKTU TAK TERBATAS -->
     <div id="tab-content-cbt-builder" class="hidden bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
       <div class="border-b border-slate-100 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
         <div>
           <h3 class="font-bold text-lg text-slate-900 flex items-center">
             <i class="fa-solid fa-layer-group text-indigo-600 mr-2"></i> Pembuat & Editor Soal CBT Multi-Tipe + Soal Bergambar
           </h3>
-          <p class="text-xs text-slate-500 mt-0.5">Mendukung Pilihan Ganda, Pilihan Ganda Kompleks, Menjodohkan, dan Isian Singkat, serta penyisipan gambar (Link URL / Unggah Perangkat) pada pertanyaan maupun opsi jawaban.</p>
+          <p class="text-xs text-slate-500 mt-0.5">Mendukung Pilihan Ganda, Pilihan Ganda Kompleks, Menjodohkan, dan Isian Singkat, penyisipan gambar (Link URL / Unggah Perangkat), serta jadwal fleksibel (Setiap Hari, Jam Kapan Saja & Waktu Tidak Terbatas).</p>
         </div>
         <div class="flex items-center space-x-2">
           <button type="button" id="btn-cbt-load-existing" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-bold transition">
@@ -1070,10 +1101,10 @@
         </div>
       </div>
 
-      <!-- Bagian E: Pengaturan Ujian Setelah Soal Dibuat -->
+      <!-- Bagian E: Pengaturan Ujian Setelah Soal Dibuat (DILENGKAPI SETIAP HARI, JAM KAPAN SAJA & WAKTU TIDAK TERBATAS) -->
       <form id="form-publish-cbt-exam" class="p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
         <h4 class="font-bold text-sm text-slate-900 border-b border-slate-200 pb-2 flex items-center">
-          <i class="fa-solid fa-sliders text-indigo-600 mr-2"></i> E. Pengaturan Publikasi Ujian CBT & Penilaian Otomatis
+          <i class="fa-solid fa-sliders text-indigo-600 mr-2"></i> E. Pengaturan Publikasi Ujian CBT, Jadwal Fleksibel & Penilaian Otomatis
         </h4>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div class="sm:col-span-2">
@@ -1088,22 +1119,49 @@
               <button type="button" id="btn-cbt-gen-token" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg text-xs font-bold">Acak</button>
             </div>
           </div>
+
+          <!-- Pengaturan Tanggal: Bisa Setiap Hari atau Tanggal Tertentu -->
           <div>
-            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Tanggal Pelaksanaan</label>
-            <input type="date" id="cbt-cfg-date" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-xs font-semibold text-slate-600 uppercase">Tanggal Pelaksanaan</label>
+              <label class="flex items-center space-x-1 text-[11px] font-bold text-emerald-600 cursor-pointer">
+                <input type="checkbox" id="cbt-cfg-every-day" checked class="w-3.5 h-3.5 text-emerald-600 rounded">
+                <span>Bisa Setiap Hari</span>
+              </label>
+            </div>
+            <input type="date" id="cbt-cfg-date" disabled class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white disabled:bg-slate-100 disabled:text-slate-400">
+            <span class="text-[10px] text-slate-400">Centang "Bisa Setiap Hari" agar bebas tanggal.</span>
           </div>
+
+          <!-- Pengaturan Jam: Bisa Kapan Saja (24 Jam) atau Jam Tertentu -->
+          <div class="sm:col-span-2">
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-xs font-semibold text-slate-600 uppercase">Jam Mulai & Jam Berakhir Ujian</label>
+              <label class="flex items-center space-x-1 text-[11px] font-bold text-emerald-600 cursor-pointer">
+                <input type="checkbox" id="cbt-cfg-anytime-clock" checked class="w-3.5 h-3.5 text-emerald-600 rounded">
+                <span>Jam Kapan Saja (Bebas 24 Jam)</span>
+              </label>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <input type="time" id="cbt-cfg-clock-start" value="00:00" disabled class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white disabled:bg-slate-100 disabled:text-slate-400">
+              <input type="time" id="cbt-cfg-clock-end" value="23:59" disabled class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white disabled:bg-slate-100 disabled:text-slate-400">
+            </div>
+            <span class="text-[10px] text-slate-400">Centang "Jam Kapan Saja" agar peserta bisa mulai jam berapa pun.</span>
+          </div>
+
+          <!-- Pengaturan Durasi: Bisa Waktu Tidak Terbatas (0) atau Menit Tertentu -->
           <div>
-            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Jam Mulai Ujian</label>
-            <input type="time" id="cbt-cfg-clock-start" value="07:00" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-xs font-semibold text-slate-600 uppercase">Durasi Ujian (Menit)</label>
+              <label class="flex items-center space-x-1 text-[11px] font-bold text-indigo-600 cursor-pointer">
+                <input type="checkbox" id="cbt-cfg-unlimited-duration" checked class="w-3.5 h-3.5 text-indigo-600 rounded">
+                <span>Waktu Tidak Terbatas</span>
+              </label>
+            </div>
+            <input type="number" id="cbt-cfg-duration" min="0" value="0" disabled required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white disabled:bg-slate-100 disabled:text-slate-400">
+            <span class="text-[10px] text-slate-400">0 = Waktu Tidak Terbatas (Tanpa Batas Waktu).</span>
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Jam Berakhir Ujian</label>
-            <input type="time" id="cbt-cfg-clock-end" value="23:59" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Durasi Ujian (Menit)</label>
-            <input type="number" id="cbt-cfg-duration" min="1" value="60" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
-          </div>
+
           <div>
             <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Maksimal Pengerjaan per Siswa</label>
             <input type="number" id="cbt-cfg-max-attempts" min="1" value="1" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
@@ -1180,7 +1238,7 @@
       </form>
     </div>
 
-    <!-- TAB BARU C: REKAP NILAI UJIAN CBT SELURUH MURID + FITUR HAPUS RIWAYAT INDIVIDUAL & MASSAL ADMIN (KETENTUAN 2) -->
+    <!-- TAB BARU C: REKAP NILAI UJIAN CBT SELURUH MURID + FITUR HAPUS RIWAYAT INDIVIDUAL & MASSAL ADMIN -->
     <div id="tab-content-grade-recap" class="hidden bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-100 pb-4">
         <div>
@@ -1189,7 +1247,6 @@
           </h3>
           <p class="text-xs text-slate-500 mt-0.5">Kelola rekapitulasi nilai seluruh peserta didik, periksa/hapus riwayat pengerjaan & pembahasan secara individual maupun beberapa data sekaligus, serta ekspor laporan.</p>
         </div>
-        <!-- Tombol Hapus Beberapa Data (Bulk Delete) & Ekspor Rekap Nilai -->
         <div class="flex flex-wrap items-center gap-2">
           <button type="button" id="btn-recap-bulk-delete" class="hidden px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow-sm transition flex items-center space-x-1.5">
             <i class="fa-solid fa-trash-can"></i>
@@ -1290,7 +1347,7 @@
 
       <div id="admin-recap-delete-alert" class="hidden p-3 rounded-xl text-xs font-medium"></div>
 
-      <!-- Tabel Rekap Nilai Seluruh Murid dengan Checkbox Hapus Massal & Tombol Hapus Individual -->
+      <!-- Tabel Rekap Nilai Seluruh Murid -->
       <div class="overflow-x-auto border border-slate-200 rounded-xl">
         <table class="w-full text-left text-xs border-collapse">
           <thead>
@@ -1822,7 +1879,7 @@
     </div>
   </section>
 
-  <!-- MODAL KONFIRMASI HAPUS RIWAYAT REKAP NILAI & PEMBAHASAN OLEH ADMIN (KETENTUAN BARU 2) -->
+  <!-- MODAL KONFIRMASI HAPUS RIWAYAT REKAP NILAI & PEMBAHASAN OLEH ADMIN -->
   <div id="modal-admin-confirm-delete-recap" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[70] flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 text-center border border-slate-100">
       <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center mx-auto mb-3 text-xl">
@@ -1969,7 +2026,7 @@
     </div>
   </div>
 
-  <!-- MODAL PEMBAHASAN & DETAIL JAWABAN CBT + TOMBOL HAPUS RIWAYAT PEMBAHASAN ADMIN (KETENTUAN BARU 2) -->
+  <!-- MODAL PEMBAHASAN & DETAIL JAWABAN CBT + TOMBOL HAPUS RIWAYAT PEMBAHASAN ADMIN -->
   <div id="modal-cbt-review-detail" class="hidden fixed inset-0 bg-slate-900/75 backdrop-blur-sm z-[65] flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full p-6 my-8 border border-slate-200 relative max-h-[92vh] flex flex-col">
       <div class="flex flex-wrap justify-between items-start gap-2 border-b border-slate-100 pb-4 mb-4">
@@ -2274,7 +2331,7 @@
               Pilih satu jawaban yang paling tepat.
             </div>
 
-            <!-- Gambar Soal (Jika Soal Menyertakan Gambar - Ketentuan 4) -->
+            <!-- Gambar Soal -->
             <div id="cbt-active-q-image-box" class="hidden flex flex-col items-start space-y-1.5 bg-slate-50 p-3 rounded-2xl border border-slate-200">
               <img id="cbt-active-q-image" src="" alt="Gambar Soal" class="cbt-img-responsive cursor-zoom-in border border-slate-200 bg-white p-1 shadow-sm" title="Klik untuk memperbesar gambar">
               <span class="text-[10px] text-slate-400 font-medium"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i>Klik pada gambar untuk memperbesar tampilan</span>
@@ -2285,7 +2342,7 @@
               Memuat pertanyaan...
             </div>
 
-            <!-- Kontainer Interaktif Jawaban (PG / PG Kompleks / Menjodohkan / Isian Singkat) -->
+            <!-- Kontainer Interaktif Jawaban -->
             <div id="cbt-active-q-options" class="space-y-3 pt-2">
               <!-- Dirender secara dinamis sesuai tipe soal -->
             </div>
@@ -2544,7 +2601,7 @@
       isNativeCBT: false,
       cbtQuestionsRuntime: [],
       cbtActiveQuestionIdx: 0,
-      cbtStudentAnswers: {}, // { questionId: "A" | ["A","C"] | { "0": " TargetText", ... } | "Isian" }
+      cbtStudentAnswers: {},
       cbtDoubtFlags: {}
     };
 
@@ -2570,7 +2627,59 @@
       return `${s} Detik`;
     }
 
-    // Fungsi Kompresi & Pembacaan File Gambar Unggahan Perangkat (JPG, JPEG, PNG, WEBP - Ketentuan 4B)
+    // Helper Toggle Pengaturan Setiap Hari, Jam Kapan Saja (24 Jam), & Waktu Tidak Terbatas
+    function setupFlexibleScheduleToggles(everyDayChkId, dateInputId, anytimeChkId, startClockId, endClockId, unlimitedDurChkId, durInputId) {
+      const everyDayChk = document.getElementById(everyDayChkId);
+      const dateInput = document.getElementById(dateInputId);
+      const anytimeChk = document.getElementById(anytimeChkId);
+      const startClock = document.getElementById(startClockId);
+      const endClock = document.getElementById(endClockId);
+      const unlimitedChk = document.getElementById(unlimitedDurChkId);
+      const durInput = document.getElementById(durInputId);
+
+      if (everyDayChk && dateInput) {
+        everyDayChk.addEventListener("change", () => {
+          dateInput.disabled = everyDayChk.checked;
+          if (everyDayChk.checked) {
+            dateInput.value = "";
+          } else if (!dateInput.value) {
+            dateInput.value = new Date().toISOString().split('T')[0];
+          }
+        });
+      }
+
+      if (anytimeChk && startClock && endClock) {
+        anytimeChk.addEventListener("change", () => {
+          startClock.disabled = anytimeChk.checked;
+          endClock.disabled = anytimeChk.checked;
+          if (anytimeChk.checked) {
+            startClock.value = "00:00";
+            endClock.value = "23:59";
+          }
+        });
+      }
+
+      if (unlimitedChk && durInput) {
+        unlimitedChk.addEventListener("change", () => {
+          durInput.disabled = unlimitedChk.checked;
+          if (unlimitedChk.checked) {
+            durInput.value = 0;
+          } else if (parseInt(durInput.value) === 0) {
+            durInput.value = 60;
+          }
+        });
+        durInput.addEventListener("input", () => {
+          const val = parseInt(durInput.value) || 0;
+          unlimitedChk.checked = (val === 0);
+        });
+      }
+    }
+
+    setupFlexibleScheduleToggles("create-every-day", "create-start-time", "create-anytime-clock", "create-clock-start", "create-clock-end", "create-unlimited-duration", "create-duration");
+    setupFlexibleScheduleToggles("cbt-cfg-every-day", "cbt-cfg-date", "cbt-cfg-anytime-clock", "cbt-cfg-clock-start", "cbt-cfg-clock-end", "cbt-cfg-unlimited-duration", "cbt-cfg-duration");
+    setupFlexibleScheduleToggles("tab-edit-every-day", "tab-edit-date", "tab-edit-anytime-clock", "tab-edit-clock-start", "tab-edit-clock-end", "tab-edit-unlimited-duration", "tab-edit-duration");
+
+    // Fungsi Kompresi & Pembacaan File Gambar Unggahan Perangkat (JPG, JPEG, PNG, WEBP)
     function processUploadedImageFile(file, maxWidth = 900, quality = 0.82) {
       return new Promise((resolve, reject) => {
         if (!file) return reject(new Error("Tidak ada file gambar dipilih."));
@@ -2605,7 +2714,6 @@
       });
     }
 
-    // Fungsi Modal Lightbox Perbesar Gambar
     function openImageZoomModal(srcUrl) {
       if (!srcUrl) return;
       const modal = document.getElementById("modal-image-zoom");
@@ -2927,7 +3035,7 @@
     setupPasswordToggle("btn-toggle-token-conf", "token-conf-val", "icon-token-conf", "Tampilkan token", "Sembunyikan token");
 
     // =========================================================================
-    // SISTEM LOGIN PESERTA, PROFIL, & HAPUS RIWAYAT PENGERJAAN SISWA (KETENTUAN BARU 1)
+    // SISTEM LOGIN PESERTA, PROFIL, & HAPUS RIWAYAT PENGERJAAN SISWA
     // =========================================================================
     function syncLoggedInStudentUI() {
       if (!loggedInStudent) return;
@@ -3131,6 +3239,7 @@
       return true;
     }
 
+    // Evaluasi Status Ujian (Mendukung penuh Pengerjaan Setiap Hari & Jam Kapan Saja)
     function evaluateExamStatusForStudent(exam, student) {
       const mySubs = submissionsList.filter(s => 
         !s.deletedByStudent &&
@@ -3148,18 +3257,34 @@
       }
 
       const now = new Date();
-      const examDateStr = exam.startTime || "";
+      const isEveryDay = exam.everyDay === true || !exam.startTime || exam.startTime === "";
+      const isAnytimeClock = exam.anytimeClock === true || (!exam.clockStart && !exam.clockEnd);
 
-      if (examDateStr) {
-        const clockStart = exam.clockStart || "00:00";
-        const clockEnd = exam.clockEnd || "23:59";
-        const startDt = new Date(`${examDateStr}T${clockStart}:00`);
-        const endDt = new Date(`${examDateStr}T${clockEnd}:59`);
-
-        if (now < startDt) {
+      // Jika Tanggal Terjadwal Khusus (Bukan Setiap Hari)
+      if (!isEveryDay && exam.startTime) {
+        const todayStr = now.toISOString().split('T')[0];
+        if (todayStr < exam.startTime) {
           return { status: "Belum Dibuka", canStart: false, badgeClass: "bg-amber-100 text-amber-800 border-amber-200" };
         }
-        if (now > endDt) {
+        if (todayStr > exam.startTime) {
+          return { status: "Kedaluwarsa", canStart: false, badgeClass: "bg-rose-100 text-rose-700 border-rose-200" };
+        }
+      }
+
+      // Jika Jam Terjadwal Khusus (Bukan Jam Kapan Saja)
+      if (!isAnytimeClock) {
+        const clockStart = exam.clockStart || "00:00";
+        const clockEnd = exam.clockEnd || "23:59";
+        const curMinutes = now.getHours() * 60 + now.getMinutes();
+        const [sh, sm] = clockStart.split(":").map(Number);
+        const [eh, em] = clockEnd.split(":").map(Number);
+        const startMinutes = (sh || 0) * 60 + (sm || 0);
+        const endMinutes = (eh || 23) * 60 + (em || 59);
+
+        if (curMinutes < startMinutes) {
+          return { status: "Belum Dibuka", canStart: false, badgeClass: "bg-amber-100 text-amber-800 border-amber-200" };
+        }
+        if (curMinutes > endMinutes) {
           return { status: "Kedaluwarsa", canStart: false, badgeClass: "bg-rose-100 text-rose-700 border-rose-200" };
         }
       }
@@ -3188,9 +3313,12 @@
       autoExams.forEach(ex => {
         const evalInfo = evaluateExamStatusForStudent(ex, loggedInStudent);
         const isCBT = ex.examType === "CBT" || (Array.isArray(ex.questions) && ex.questions.length > 0);
-        const dateLabel = ex.startTime ? ex.startTime : "Setiap Hari";
-        const clockLabel = `${ex.clockStart || '00:00'} - ${ex.clockEnd || '23:59'} WIB`;
-        const durLabel = ex.duration > 0 ? `${ex.duration} Menit` : "Tanpa Batas Waktu";
+        const isEveryDay = ex.everyDay === true || !ex.startTime;
+        const isAnytimeClock = ex.anytimeClock === true || (!ex.clockStart && !ex.clockEnd) || (ex.clockStart === "00:00" && ex.clockEnd === "23:59");
+
+        const dateLabel = isEveryDay ? "Setiap Hari" : ex.startTime;
+        const clockLabel = isAnytimeClock ? "Kapan Saja (24 Jam)" : `${ex.clockStart || '00:00'} - ${ex.clockEnd || '23:59'} WIB`;
+        const durLabel = ex.duration > 0 ? `${ex.duration} Menit` : "Waktu Tidak Terbatas";
 
         const card = document.createElement("div");
         card.className = "p-4 sm:p-5 rounded-2xl border border-slate-200 hover:border-indigo-300 bg-slate-50/50 transition flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4";
@@ -3204,7 +3332,7 @@
             </div>
             <h4 class="font-black text-base text-slate-900">${ex.title}</h4>
             <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
-              <span><i class="fa-regular fa-calendar mr-1 text-indigo-500"></i>Tanggal: <strong class="text-slate-700">${dateLabel}</strong></span>
+              <span><i class="fa-regular fa-calendar mr-1 text-indigo-500"></i>Hari/Tanggal: <strong class="text-slate-700">${dateLabel}</strong></span>
               <span><i class="fa-regular fa-clock mr-1 text-indigo-500"></i>Jam: <strong class="text-slate-700">${clockLabel}</strong></span>
               <span><i class="fa-solid fa-stopwatch mr-1 text-indigo-500"></i>Durasi: <strong class="text-slate-700">${durLabel}</strong></span>
             </div>
@@ -3235,7 +3363,7 @@
       });
     }
 
-    // Render Riwayat Nilai Peserta + Tombol Hapus Riwayat Pengerjaan Siswa (Ketentuan Baru 1)
+    // Render Riwayat Nilai Peserta + Tombol Hapus Riwayat Pengerjaan Siswa
     function renderStudentGradesHistory() {
       const tbody = document.getElementById("table-student-grades-body");
       if (!tbody || !loggedInStudent) return;
@@ -3335,7 +3463,6 @@
       const targetSub = submissionsList.find(s => s.id === subId);
       if (!targetSub) return;
 
-      // Validasi keamanan: pastikan riwayat ini benar-benar milik siswa yang sedang login dan bukan ujian yang sedang aktif
       const isMine = (targetSub.studentUsername && targetSub.studentUsername.toLowerCase() === loggedInStudent.username.toLowerCase()) ||
                      (targetSub.studentName && targetSub.studentName.toLowerCase() === loggedInStudent.fullName.toLowerCase());
       if (!isMine || isOngoingSubmissionStatus(targetSub.status)) {
@@ -3724,16 +3851,14 @@
     });
 
     // =========================================================================
-    // PEMBUAT & EDITOR SOAL CBT MULTI-TIPE + SOAL BERGAMBAR (KETENTUAN 3 & 4)
+    // PEMBUAT & EDITOR SOAL CBT MULTI-TIPE + SOAL BERGAMBAR + JADWAL FLEKSIBEL
     // =========================================================================
     document.getElementById("cbt-cfg-token").value = generateToken(6);
-    document.getElementById("cbt-cfg-date").value = new Date().toISOString().split('T')[0];
 
     document.getElementById("btn-cbt-gen-token").addEventListener("click", () => {
       document.getElementById("cbt-cfg-token").value = generateToken(6);
     });
 
-    // Contoh Format Multi-Tipe Soal (PG, PG Kompleks, Menjodohkan)
     document.getElementById("btn-insert-sample-cbt-text").addEventListener("click", () => {
       document.getElementById("cbt-raw-text-input").value = 
 `1. [PG] Besaran fisika berikut yang merupakan besaran pokok dalam Sistem Internasional (SI) adalah...
@@ -3817,7 +3942,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       parseRawTextIntoCBTQuestions(rawText);
     });
 
-    // Parser Cerdas Mendukung PG, PG Kompleks, Menjodohkan, Isian Singkat, & Link Gambar
     function parseRawTextIntoCBTQuestions(rawText) {
       const normalized = rawText
         .replace(/\r\n/g, "\n")
@@ -3841,14 +3965,12 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       lines.forEach(line => {
         if (/^(kunci\s*jawaban|daftar\s*kunci)/i.test(line)) return;
 
-        // Deteksi Baris Gambar Soal (Contoh: "Gambar: https://...")
         const imgLineMatch = line.match(/^(?:Gambar|Image|Foto)\s*[:=]\s*(https?:\/\/\S+)/i);
         if (imgLineMatch && currentQ) {
           currentQ.questionImage = imgLineMatch[1].trim();
           return;
         }
 
-        // Deteksi Baris Pasangan Menjodohkan (Contoh: "Pasangan: Pernyataan = Jawaban")
         const pairMatch = line.match(/^(?:Pasangan|Match|Jodohkan)\s*[:=\-]\s*(.+?)\s*(?:=|->|=>|:)\s*(.+)$/i);
         if (pairMatch && currentQ) {
           currentQ.questionType = "MATCHING";
@@ -3860,7 +3982,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
           return;
         }
 
-        // Deteksi Baris Kunci Jawaban (Mendukung Tunggal "C", Kompleks "A, C", atau Isian Singkat)
         const explicitKeyMatch = line.match(/^(?:Kunci(?:\s*Jawaban)?|Jawaban|Answer|Key)\s*[:=\-]\s*(.+)$/i);
         if (explicitKeyMatch && currentQ) {
           const rawKey = explicitKeyMatch[1].trim();
@@ -3881,7 +4002,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
           return;
         }
 
-        // Deteksi Baris Opsi Jawaban (A. / B. / C. / D. / E.)
         const optMatch = line.match(/^([A-Ea-e])[\.\)\-]\s*(.+)$/);
         if (optMatch && currentQ) {
           const letter = optMatch[1].toUpperCase();
@@ -3899,7 +4019,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
           return;
         }
 
-        // Deteksi Baris Nomor Soal Baru
         const qStartMatch = line.match(/^(?:Soal\s*)?(\d+)[\.\)\-:]\s*(.+)$/i);
         if (qStartMatch) {
           if (/^[A-Ea-e]$/.test(qStartMatch[2].trim())) return;
@@ -4021,7 +4140,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         const card = document.createElement("div");
         card.className = "p-4 sm:p-5 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-4";
 
-        // 1. Bagian Pengaturan Gambar Soal (Link URL atau Unggah Perangkat + Pratinjau, Ganti, Hapus - Ketentuan 4)
         const qImageSectionHtml = `
           <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-2.5">
             <div class="flex flex-wrap justify-between items-center gap-2">
@@ -4055,7 +4173,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
           </div>
         `;
 
-        // 2. Bagian Editor Jawaban Berdasarkan Tipe Soal (PG, PGK, MATCHING, SHORT_ANSWER - Ketentuan 3)
         let answerConfigHtml = "";
 
         if (q.questionType === "PG" || q.questionType === "PGK") {
@@ -4080,7 +4197,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
                   <input type="text" data-idx="${index}" data-opt="${letter}" value="${val.replace(/"/g, '&quot;')}" placeholder="Teks Pilihan Jawaban ${letter}"
                     class="inp-cbt-edit-opt w-full px-3 py-1.5 border border-slate-300 rounded-lg text-xs bg-white focus:ring-2 focus:ring-indigo-500 outline-none">
                 </div>
-                <!-- Dukungan Gambar pada Pilihan Jawaban (Link URL & Upload File) -->
                 <div class="pl-9 space-y-1.5">
                   <div class="flex flex-wrap items-center gap-2">
                     <input type="url" data-idx="${index}" data-opt="${letter}" value="${(optImg && !optImg.startsWith('data:')) ? optImg.replace(/"/g, '&quot;') : ''}" placeholder="Link Gambar Opsi ${letter} (https://...)"
@@ -4227,7 +4343,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         });
       });
 
-      // Listener Link & Upload Gambar Soal
       container.querySelectorAll(".inp-cbt-q-img-url").forEach(el => {
         el.addEventListener("change", (e) => {
           const idx = parseInt(e.target.getAttribute("data-idx"));
@@ -4259,7 +4374,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         });
       });
 
-      // Listener Teks & Gambar Opsi Jawaban (PG & PGK)
       container.querySelectorAll(".inp-cbt-edit-opt").forEach(el => {
         el.addEventListener("input", (e) => {
           const idx = parseInt(e.target.getAttribute("data-idx"));
@@ -4327,7 +4441,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         });
       });
 
-      // Listener Soal Menjodohkan (Matching)
       container.querySelectorAll(".inp-cbt-match-left").forEach(el => {
         el.addEventListener("input", (e) => {
           const idx = parseInt(e.target.getAttribute("data-idx"));
@@ -4360,7 +4473,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       container.querySelectorAll(".btn-cbt-del-pair").forEach(btn => {
         btn.addEventListener("click", (e) => {
           const idx = parseInt(e.currentTarget.getAttribute("data-idx"));
-          const pidx = parseInt(e.currentTarget.getAttribute("data-pidx"));
+          const pidx = parseInt(e.target.getAttribute("data-pidx"));
           if (cbtDraftQuestions[idx].matchingPairs.length <= 2) {
             alert("Soal menjodohkan minimal harus memiliki 2 pasang pernyataan!");
             return;
@@ -4370,7 +4483,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         });
       });
 
-      // Listener Isian Singkat
       container.querySelectorAll(".inp-cbt-short-key").forEach(el => {
         el.addEventListener("input", (e) => {
           const idx = parseInt(e.target.getAttribute("data-idx"));
@@ -4426,7 +4538,15 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         document.getElementById("cbt-raw-text-input").value = "";
         document.getElementById("form-publish-cbt-exam").reset();
         document.getElementById("cbt-cfg-token").value = generateToken(6);
-        document.getElementById("cbt-cfg-date").value = new Date().toISOString().split('T')[0];
+        document.getElementById("cbt-cfg-every-day").checked = true;
+        document.getElementById("cbt-cfg-date").disabled = true;
+        document.getElementById("cbt-cfg-date").value = "";
+        document.getElementById("cbt-cfg-anytime-clock").checked = true;
+        document.getElementById("cbt-cfg-clock-start").disabled = true;
+        document.getElementById("cbt-cfg-clock-end").disabled = true;
+        document.getElementById("cbt-cfg-unlimited-duration").checked = true;
+        document.getElementById("cbt-cfg-duration").disabled = true;
+        document.getElementById("cbt-cfg-duration").value = 0;
         renderCBTQuestionsEditor();
       }
     });
@@ -4452,10 +4572,24 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       cbtDraftQuestions = JSON.parse(JSON.stringify(exam.questions || [])).map(q => normalizeQuestionStructure(q));
       document.getElementById("cbt-cfg-title").value = exam.title || "";
       document.getElementById("cbt-cfg-token").value = exam.token || generateToken(6);
-      document.getElementById("cbt-cfg-date").value = exam.startTime || new Date().toISOString().split('T')[0];
-      document.getElementById("cbt-cfg-clock-start").value = exam.clockStart || "07:00";
+
+      const isEveryDay = exam.everyDay === true || !exam.startTime;
+      document.getElementById("cbt-cfg-every-day").checked = isEveryDay;
+      document.getElementById("cbt-cfg-date").disabled = isEveryDay;
+      document.getElementById("cbt-cfg-date").value = isEveryDay ? "" : (exam.startTime || "");
+
+      const isAnytimeClock = exam.anytimeClock === true || (!exam.clockStart && !exam.clockEnd) || (exam.clockStart === "00:00" && exam.clockEnd === "23:59");
+      document.getElementById("cbt-cfg-anytime-clock").checked = isAnytimeClock;
+      document.getElementById("cbt-cfg-clock-start").disabled = isAnytimeClock;
+      document.getElementById("cbt-cfg-clock-end").disabled = isAnytimeClock;
+      document.getElementById("cbt-cfg-clock-start").value = exam.clockStart || "00:00";
       document.getElementById("cbt-cfg-clock-end").value = exam.clockEnd || "23:59";
-      document.getElementById("cbt-cfg-duration").value = exam.duration || 60;
+
+      const isUnlimitedDur = !exam.duration || parseInt(exam.duration) === 0;
+      document.getElementById("cbt-cfg-unlimited-duration").checked = isUnlimitedDur;
+      document.getElementById("cbt-cfg-duration").disabled = isUnlimitedDur;
+      document.getElementById("cbt-cfg-duration").value = isUnlimitedDur ? 0 : exam.duration;
+
       document.getElementById("cbt-cfg-max-attempts").value = exam.maxAttempts || 1;
       document.getElementById("cbt-cfg-kkm").value = exam.passingGrade !== undefined ? exam.passingGrade : 75;
       document.getElementById("cbt-cfg-target-class").value = exam.targetClass || "";
@@ -4491,6 +4625,10 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         assignedStudentUsernames.push(cb.value);
       });
 
+      const isEveryDay = document.getElementById("cbt-cfg-every-day").checked;
+      const isAnytimeClock = document.getElementById("cbt-cfg-anytime-clock").checked;
+      const isUnlimitedDur = document.getElementById("cbt-cfg-unlimited-duration").checked;
+
       const payload = {
         title,
         token: tokenVal,
@@ -4498,10 +4636,12 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         formUrl: "CBT_INTERNAL",
         questions: cbtDraftQuestions,
         gradingMode: document.getElementById("cbt-cfg-grading-mode").value || "PARTIAL",
-        startTime: document.getElementById("cbt-cfg-date").value || null,
-        clockStart: document.getElementById("cbt-cfg-clock-start").value || "07:00",
-        clockEnd: document.getElementById("cbt-cfg-clock-end").value || "23:59",
-        duration: parseInt(document.getElementById("cbt-cfg-duration").value) || 60,
+        everyDay: isEveryDay,
+        startTime: isEveryDay ? null : (document.getElementById("cbt-cfg-date").value || null),
+        anytimeClock: isAnytimeClock,
+        clockStart: isAnytimeClock ? "00:00" : (document.getElementById("cbt-cfg-clock-start").value || "00:00"),
+        clockEnd: isAnytimeClock ? "23:59" : (document.getElementById("cbt-cfg-clock-end").value || "23:59"),
+        duration: isUnlimitedDur ? 0 : (parseInt(document.getElementById("cbt-cfg-duration").value) || 0),
         maxAttempts: parseInt(document.getElementById("cbt-cfg-max-attempts").value) || 1,
         passingGrade: parseFloat(document.getElementById("cbt-cfg-kkm").value) || 75,
         targetClass: document.getElementById("cbt-cfg-target-class").value.trim(),
@@ -4524,7 +4664,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
           await recordAdminLog(
             isPublishedActive ? "Terbitkan Ujian CBT Multi-Tipe" : "Simpan Draft CBT",
             `${title} (${tokenVal})`,
-            `Jumlah soal: ${cbtDraftQuestions.length} butir`
+            `Jumlah soal: ${cbtDraftQuestions.length} butir | Jadwal: ${isEveryDay ? 'Setiap Hari' : payload.startTime} | Durasi: ${payload.duration === 0 ? 'Tak Terbatas' : payload.duration + 'm'}`
           );
 
           alertBox.className = "p-3 rounded-lg text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200";
@@ -5552,6 +5692,9 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         const lockdownSec = getLockdownSecondsForExam(item.token);
         const cooldownSec = getCooldownSecondsForExam(item.token);
         const isCBT = item.examType === "CBT" || (Array.isArray(item.questions) && item.questions.length > 0);
+        const isEveryDay = item.everyDay === true || !item.startTime;
+        const isAnytimeClock = item.anytimeClock === true || (!item.clockStart && !item.clockEnd) || (item.clockStart === "00:00" && item.clockEnd === "23:59");
+
         const tr = document.createElement("tr");
         tr.className = "hover:bg-slate-50 transition";
         tr.innerHTML = `
@@ -5563,8 +5706,8 @@ Pasangan: Jumlah Zat = Mol (mol)`;
           </td>
           <td class="p-3"><span class="px-2 py-0.5 bg-slate-100 rounded font-mono font-bold text-indigo-700">${item.token}</span></td>
           <td class="p-3 text-[11px]">
-            <span class="block font-semibold">${item.duration > 0 ? item.duration + ' Menit' : 'Tanpa Batas'}</span>
-            <span class="text-slate-400">${item.startTime || 'Setiap Hari'} (${item.clockStart || '00:00'}-${item.clockEnd || '23:59'})</span>
+            <span class="block font-semibold text-indigo-700">${item.duration > 0 ? item.duration + ' Menit' : 'Waktu Tidak Terbatas'}</span>
+            <span class="text-slate-500">${isEveryDay ? 'Setiap Hari' : item.startTime} • ${isAnytimeClock ? 'Kapan Saja (24 Jam)' : (item.clockStart + '-' + item.clockEnd)}</span>
           </td>
           <td class="p-3 text-xs font-semibold text-slate-700">${item.targetClass || 'Semua Kelas'}</td>
           <td class="p-3 font-mono text-rose-600 font-semibold">${formatSecondsReadable(lockdownSec)}</td>
@@ -5664,15 +5807,31 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       const exam = examsList.find(x => x.token === token);
       if (exam) {
         const isCBT = exam.examType === "CBT" || (Array.isArray(exam.questions) && exam.questions.length > 0);
+        const isEveryDay = exam.everyDay === true || !exam.startTime;
+        const isAnytimeClock = exam.anytimeClock === true || (!exam.clockStart && !exam.clockEnd) || (exam.clockStart === "00:00" && exam.clockEnd === "23:59");
+        const isUnlimitedDur = !exam.duration || parseInt(exam.duration) === 0;
+
         document.getElementById("tab-edit-token").value = exam.token;
         document.getElementById("tab-edit-token-display").value = exam.token;
         document.getElementById("tab-edit-title").value = exam.title || "";
         document.getElementById("tab-edit-url").value = exam.formUrl || "";
-        document.getElementById("tab-edit-duration").value = exam.duration || 0;
+
+        document.getElementById("tab-edit-unlimited-duration").checked = isUnlimitedDur;
+        document.getElementById("tab-edit-duration").disabled = isUnlimitedDur;
+        document.getElementById("tab-edit-duration").value = isUnlimitedDur ? 0 : exam.duration;
+
         document.getElementById("tab-edit-max-attempts").value = exam.maxAttempts || 1;
-        document.getElementById("tab-edit-date").value = exam.startTime || "";
-        document.getElementById("tab-edit-clock-start").value = exam.clockStart || "07:00";
+
+        document.getElementById("tab-edit-every-day").checked = isEveryDay;
+        document.getElementById("tab-edit-date").disabled = isEveryDay;
+        document.getElementById("tab-edit-date").value = isEveryDay ? "" : (exam.startTime || "");
+
+        document.getElementById("tab-edit-anytime-clock").checked = isAnytimeClock;
+        document.getElementById("tab-edit-clock-start").disabled = isAnytimeClock;
+        document.getElementById("tab-edit-clock-end").disabled = isAnytimeClock;
+        document.getElementById("tab-edit-clock-start").value = exam.clockStart || "00:00";
         document.getElementById("tab-edit-clock-end").value = exam.clockEnd || "23:59";
+
         document.getElementById("tab-edit-target-class").value = exam.targetClass || "";
         document.getElementById("tab-edit-passing-grade").value = exam.passingGrade !== undefined ? exam.passingGrade : 75;
         document.getElementById("tab-edit-auto-dashboard").checked = exam.autoDashboard !== false;
@@ -5705,14 +5864,20 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       const token = document.getElementById("tab-edit-token").value;
       const alertBox = document.getElementById("tab-edit-alert");
 
+      const isEveryDay = document.getElementById("tab-edit-every-day").checked;
+      const isAnytimeClock = document.getElementById("tab-edit-anytime-clock").checked;
+      const isUnlimitedDur = document.getElementById("tab-edit-unlimited-duration").checked;
+
       const updatedPayload = {
         title: document.getElementById("tab-edit-title").value.trim(),
         formUrl: document.getElementById("tab-edit-url").value.trim() || "CBT_INTERNAL",
-        duration: parseInt(document.getElementById("tab-edit-duration").value) || 0,
+        duration: isUnlimitedDur ? 0 : (parseInt(document.getElementById("tab-edit-duration").value) || 0),
         maxAttempts: parseInt(document.getElementById("tab-edit-max-attempts").value) || 1,
-        startTime: document.getElementById("tab-edit-date").value || null,
-        clockStart: document.getElementById("tab-edit-clock-start").value || "07:00",
-        clockEnd: document.getElementById("tab-edit-clock-end").value || "23:59",
+        everyDay: isEveryDay,
+        startTime: isEveryDay ? null : (document.getElementById("tab-edit-date").value || null),
+        anytimeClock: isAnytimeClock,
+        clockStart: isAnytimeClock ? "00:00" : (document.getElementById("tab-edit-clock-start").value || "00:00"),
+        clockEnd: isAnytimeClock ? "23:59" : (document.getElementById("tab-edit-clock-end").value || "23:59"),
         targetClass: document.getElementById("tab-edit-target-class").value.trim(),
         passingGrade: parseFloat(document.getElementById("tab-edit-passing-grade").value) || 75,
         autoDashboard: document.getElementById("tab-edit-auto-dashboard").checked,
@@ -5730,7 +5895,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       if (db && token) {
         try {
           await updateDoc(doc(db, "exams", token), updatedPayload);
-          await recordAdminLog("Memperbarui Pengaturan Ujian", token, `Judul: ${updatedPayload.title}, Durasi: ${updatedPayload.duration}m`);
+          await recordAdminLog("Memperbarui Pengaturan Ujian", token, `Judul: ${updatedPayload.title}, Jadwal: ${isEveryDay ? 'Setiap Hari' : updatedPayload.startTime}, Durasi: ${updatedPayload.duration === 0 ? 'Tak Terbatas' : updatedPayload.duration + 'm'}`);
 
           alertBox.className = "p-3 rounded-lg text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200";
           alertBox.innerText = `Pengaturan soal ujian (${token}) berhasil diperbarui!`;
@@ -5855,7 +6020,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
             remainingText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
             if (item.extraMinutes > 0) remainingText += ` (+${item.extraMinutes}m)`;
           } else {
-            remainingText = "Tanpa Batas";
+            remainingText = "Tanpa Batas Waktu";
           }
         } else {
           remainingText = item.finishedAt ? `Berakhir: ${item.finishedAt}` : "Tuntas";
@@ -5963,7 +6128,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
     }, 2000);
 
     // =========================================================================
-    // REKAP NILAI SELURUH MURID + FITUR HAPUS INDIVIDUAL & MASSAL ADMIN (KETENTUAN BARU 2)
+    // REKAP NILAI SELURUH MURID + FITUR HAPUS INDIVIDUAL & MASSAL ADMIN
     // =========================================================================
     let currentRecapRowsData = [];
     let afterAdminDeleteCallback = null;
@@ -6012,7 +6177,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
             const latestSub = stuSubs[0];
             stuSubs.forEach(s => handledSubIds.add(s.id));
 
-            const rawDate = latestSub.updatedAt ? latestSub.updatedAt.split('T')[0] : (exam.startTime || "");
+            const rawDate = latestSub.updatedAt ? latestSub.updatedAt.split('T')[0] : (exam.startTime || "Setiap Hari");
             const hasScore = latestSub.score !== undefined && latestSub.score !== null;
             const numericScore = hasScore ? parseFloat(latestSub.score) : null;
             const isDone = !isOngoingSubmissionStatus(latestSub.status);
@@ -6040,7 +6205,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
               studentClass: stu.studentClass || "-",
               examTitle: exam.title,
               examToken: exam.token,
-              examDate: exam.startTime || "-",
+              examDate: exam.startTime || "Setiap Hari",
               score: null,
               status: "Belum Mengerjakan",
               isAttempted: false,
@@ -6055,7 +6220,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
 
         examSubs.forEach(sub => {
           if (handledSubIds.has(sub.id)) return;
-          const rawDate = sub.updatedAt ? sub.updatedAt.split('T')[0] : (exam.startTime || "");
+          const rawDate = sub.updatedAt ? sub.updatedAt.split('T')[0] : (exam.startTime || "Setiap Hari");
           const hasScore = sub.score !== undefined && sub.score !== null;
           const numericScore = hasScore ? parseFloat(sub.score) : null;
           const isDone = !isOngoingSubmissionStatus(sub.status);
@@ -6113,7 +6278,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       const countSpan = document.getElementById("recap-selected-count");
       if (!btnBulk || !countSpan) return;
 
-      // Bersihkan ID yang sudah tidak ada di daftar submissions
       selectedRecapSubmissionIds.forEach(id => {
         if (!submissionsList.some(s => s.id === id)) {
           selectedRecapSubmissionIds.delete(id);
@@ -6244,7 +6408,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       });
     }
 
-    // Checkbox Pilih Semua pada Tabel Rekap Nilai
     document.getElementById("chk-recap-select-all").addEventListener("change", (e) => {
       const checked = e.target.checked;
       currentRecapRowsData.forEach(r => {
@@ -6256,7 +6419,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       renderGradeRecapTable();
     });
 
-    // Tombol Hapus Beberapa Data Sekaligus (Bulk Delete)
     document.getElementById("btn-recap-bulk-delete").addEventListener("click", () => {
       if (selectedRecapSubmissionIds.size === 0) return;
       promptAdminDeleteRecapSubmissions(Array.from(selectedRecapSubmissionIds));
@@ -6310,7 +6472,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         document.getElementById("chk-recap-select-all").checked = false;
         updateRecapBulkDeleteButtonUI();
 
-        // Jika yang dihapus sedang dibuka di modal pembahasan, tutup modal pembahasan
         if (activeReviewModalSubmissionId && pendingAdminDeleteSubmissionIds.includes(activeReviewModalSubmissionId)) {
           document.getElementById("modal-cbt-review-detail").classList.add("hidden");
           activeReviewModalSubmissionId = null;
@@ -6477,7 +6638,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
     });
 
     // =========================================================================
-    // MESIN PENILAIAN OTOMATIS MULTI-TIPE SOAL & PEMBAHASAN (KETENTUAN BARU 3 & 4)
+    // MESIN PENILAIAN OTOMATIS MULTI-TIPE SOAL & PEMBAHASAN
     // =========================================================================
     function isQuestionAnsweredByStudent(q, ansVal) {
       if (ansVal === undefined || ansVal === null) return false;
@@ -6520,7 +6681,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
           return { isUnanswered: false, isCorrect: false, isPartial: false, earnedWeight: 0, maxWeight: w };
         }
 
-        // Mode PARTIAL: hitung proporsi jawaban benar dikurangi penalti pilihan salah
         let rightPicked = 0;
         let wrongPicked = 0;
         chosenArr.forEach(c => {
@@ -6778,7 +6938,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
     });
 
     // =========================================================================
-    // AUDIT LOG, TEMA, LOGIN ADMIN, & BUAT UJIAN CARA 1
+    // AUDIT LOG, TEMA, LOGIN ADMIN, & BUAT UJIAN CARA 1 (MENDUKUNG SETIAP HARI & WAKTU TAK TERBATAS)
     // =========================================================================
     function renderLogsTable() {
       const tbody = document.getElementById("table-logs-body");
@@ -6858,15 +7018,21 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         assignedStudentUsernames.push(cb.value);
       });
 
+      const isEveryDay = document.getElementById("create-every-day").checked;
+      const isAnytimeClock = document.getElementById("create-anytime-clock").checked;
+      const isUnlimitedDur = document.getElementById("create-unlimited-duration").checked;
+
       const newExam = {
         title: document.getElementById("create-title").value.trim(),
         examType: "LINK",
         formUrl: document.getElementById("create-url").value.trim(),
-        duration: parseInt(document.getElementById("create-duration").value) || 0,
+        duration: isUnlimitedDur ? 0 : (parseInt(document.getElementById("create-duration").value) || 0),
         maxAttempts: parseInt(document.getElementById("create-max-attempts").value) || 1,
-        startTime: document.getElementById("create-start-time").value || null,
-        clockStart: document.getElementById("create-clock-start").value || "07:00",
-        clockEnd: document.getElementById("create-clock-end").value || "23:59",
+        everyDay: isEveryDay,
+        startTime: isEveryDay ? null : (document.getElementById("create-start-time").value || null),
+        anytimeClock: isAnytimeClock,
+        clockStart: isAnytimeClock ? "00:00" : (document.getElementById("create-clock-start").value || "00:00"),
+        clockEnd: isAnytimeClock ? "23:59" : (document.getElementById("create-clock-end").value || "23:59"),
         targetClass: document.getElementById("create-target-class").value.trim(),
         assignedStudentUsernames,
         autoDashboard: document.getElementById("create-auto-dashboard").checked,
@@ -6879,7 +7045,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       if (db) {
         try {
           await setDoc(doc(db, "exams", tokenVal), newExam);
-          await recordAdminLog("Membuat Ujian Baru (Link)", tokenVal, `Judul: ${newExam.title}, Durasi: ${newExam.duration}m`);
+          await recordAdminLog("Membuat Ujian Baru (Link)", tokenVal, `Judul: ${newExam.title}, Jadwal: ${isEveryDay ? 'Setiap Hari' : newExam.startTime}, Durasi: ${newExam.duration === 0 ? 'Tak Terbatas' : newExam.duration + 'm'}`);
           alertBox.className = "p-3 rounded-lg text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200";
           alertBox.innerText = `Ujian berhasil disimpan dengan Token: ${newExam.token}`;
           alertBox.classList.remove("hidden");
@@ -6888,6 +7054,11 @@ Pasangan: Jumlah Zat = Mol (mol)`;
             createModal.classList.add("hidden");
             document.getElementById("form-create-exam").reset();
             document.getElementById("create-token").value = generateToken(6);
+            document.getElementById("create-every-day").checked = true;
+            document.getElementById("create-start-time").disabled = true;
+            document.getElementById("create-anytime-clock").checked = true;
+            document.getElementById("create-clock-start").disabled = true;
+            document.getElementById("create-clock-end").disabled = true;
           }, 1200);
         } catch (err) {
           alertBox.className = "p-3 rounded-lg text-xs font-medium bg-rose-50 text-rose-700 border border-rose-200";
@@ -7073,7 +7244,7 @@ Pasangan: Jumlah Zat = Mol (mol)`;
     });
 
     // =========================================================================
-    // ALUR MULAI UJIAN, MESIN CBT MULTI-TIPE & SOAL BERGAMBAR (KETENTUAN 3 & 4)
+    // ALUR MULAI UJIAN (MENDUKUNG SETIAP HARI, JAM KAPAN SAJA & WAKTU TAK TERBATAS)
     // =========================================================================
     function determineActiveAudioForSession() {
       if (!currentSession.examData) return;
@@ -7200,21 +7371,45 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         return;
       }
 
-      if (exam.startTime) {
-        const now = new Date();
-        const cStart = exam.clockStart || "00:00";
-        const cEnd = exam.clockEnd || "23:59";
-        const startDt = new Date(`${exam.startTime}T${cStart}:00`);
-        const endDt = new Date(`${exam.startTime}T${cEnd}:59`);
-        if (now < startDt) {
+      // Pengecekan Jadwal Fleksibel (Setiap Hari & Jam Kapan Saja)
+      const now = new Date();
+      const isEveryDay = exam.everyDay === true || !exam.startTime || exam.startTime === "";
+      const isAnytimeClock = exam.anytimeClock === true || (!exam.clockStart && !exam.clockEnd);
+
+      if (!isEveryDay && exam.startTime) {
+        const todayStr = now.toISOString().split('T')[0];
+        if (todayStr < exam.startTime) {
           alertBox.className = "p-3 rounded-lg text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200";
-          alertBox.innerText = `Jadwal ujian "${exam.title}" belum dimulai! Jadwal buka: ${exam.startTime} pukul ${cStart} WIB.`;
+          alertBox.innerText = `Jadwal ujian "${exam.title}" belum dibuka! Tanggal pelaksanaan: ${exam.startTime}.`;
           alertBox.classList.remove("hidden");
           return;
         }
-        if (now > endDt) {
+        if (todayStr > exam.startTime) {
           alertBox.className = "p-3 rounded-lg text-xs font-medium bg-rose-50 text-rose-700 border border-rose-200";
-          alertBox.innerText = `Jadwal ujian "${exam.title}" telah berakhir pada ${exam.startTime} pukul ${cEnd} WIB.`;
+          alertBox.innerText = `Jadwal tanggal pelaksanaan ujian "${exam.title}" (${exam.startTime}) telah berakhir.`;
+          alertBox.classList.remove("hidden");
+          return;
+        }
+      }
+
+      if (!isAnytimeClock) {
+        const cStart = exam.clockStart || "00:00";
+        const cEnd = exam.clockEnd || "23:59";
+        const curMinutes = now.getHours() * 60 + now.getMinutes();
+        const [sh, sm] = cStart.split(":").map(Number);
+        const [eh, em] = cEnd.split(":").map(Number);
+        const startMinutes = (sh || 0) * 60 + (sm || 0);
+        const endMinutes = (eh || 23) * 60 + (em || 59);
+
+        if (curMinutes < startMinutes) {
+          alertBox.className = "p-3 rounded-lg text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200";
+          alertBox.innerText = `Jam ujian "${exam.title}" belum dimulai! Jam buka: pukul ${cStart} WIB.`;
+          alertBox.classList.remove("hidden");
+          return;
+        }
+        if (curMinutes > endMinutes) {
+          alertBox.className = "p-3 rounded-lg text-xs font-medium bg-rose-50 text-rose-700 border border-rose-200";
+          alertBox.innerText = `Jam pengerjaan ujian "${exam.title}" telah berakhir pada pukul ${cEnd} WIB.`;
           alertBox.classList.remove("hidden");
           return;
         }
@@ -7349,7 +7544,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
           image: (q.optionImages && q.optionImages[origKey]) ? q.optionImages[origKey] : ""
         }));
 
-        // Untuk soal Menjodohkan, acak daftar target jawaban di dropdown kanan
         const rawRightTargets = (q.matchingPairs || []).map(p => p.rightText);
         const shuffledRightTargets = exam.shuffleOptions !== false ? shuffleArray(rawRightTargets) : rawRightTargets;
 
@@ -7383,7 +7577,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       } catch (e) {}
     }
 
-    // Render Soal Multi-Tipe & Gambar pada Ruang Ujian Siswa (Ketentuan 3 & 4)
     function renderActiveCBTQuestion() {
       if (!currentSession.isNativeCBT || currentSession.cbtQuestionsRuntime.length === 0) return;
       const idx = currentSession.cbtActiveQuestionIdx;
@@ -7415,7 +7608,6 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         instrEl.innerHTML = `<i class="fa-solid fa-circle-dot text-indigo-600 mr-1.5"></i><strong>Petunjuk:</strong> Pilih <strong>satu</strong> jawaban yang paling tepat.`;
       }
 
-      // Tampilkan Gambar Soal (Jika Ada)
       const qImgBox = document.getElementById("cbt-active-q-image-box");
       const qImgEl = document.getElementById("cbt-active-q-image");
       if (q.questionImage && q.questionImage.trim() !== "") {
@@ -7733,8 +7925,13 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       recordSubmissionHeartbeat("Sedang Mengerjakan");
 
       const finishBtn = document.getElementById("btn-finish-exam");
-      if (exam.duration > 0) {
-        document.getElementById("timer-container").classList.remove("hidden");
+      const timerContainer = document.getElementById("timer-container");
+      const timerDisplay = document.getElementById("exam-timer-display");
+
+      clearInterval(currentSession.timerInterval);
+
+      if (exam.duration && exam.duration > 0) {
+        timerContainer.classList.remove("hidden");
         if (currentSession.isNativeCBT || exam.duration <= 25) {
           finishBtn.classList.remove("hidden");
         } else {
@@ -7742,7 +7939,9 @@ Pasangan: Jumlah Zat = Mol (mol)`;
         }
         runExamTimer();
       } else {
-        document.getElementById("timer-container").classList.add("hidden");
+        // Mode Durasi Waktu Tidak Terbatas (0 = Tanpa Batas Waktu)
+        timerContainer.classList.remove("hidden");
+        timerDisplay.innerText = "TANPA BATAS WAKTU";
         finishBtn.classList.remove("hidden");
       }
 
@@ -7946,6 +8145,12 @@ Pasangan: Jumlah Zat = Mol (mol)`;
       const finishBtn = document.getElementById("btn-finish-exam");
 
       currentSession.timerInterval = setInterval(() => {
+        if (!currentSession.examData || !currentSession.examData.duration || currentSession.examData.duration <= 0) {
+          clearInterval(currentSession.timerInterval);
+          timerDisplay.innerText = "TANPA BATAS WAKTU";
+          return;
+        }
+
         const totalDurationSec = (currentSession.examData.duration + currentSession.extraMinutes) * 60;
         const elapsedSec = Math.floor((Date.now() - currentSession.startTimestamp) / 1000);
         const remaining = totalDurationSec - elapsedSec;
